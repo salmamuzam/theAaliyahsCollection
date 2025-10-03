@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:the_aaliyahs_collection/utils/theme/theme.dart';
 
+// Entry point of Flutter App
+
 void main() {
   runApp(const App());
 }
