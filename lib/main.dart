@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_aaliyahs_collection/features/authentication/screens/onBoarding/onBoarding.dart';
 import 'package:the_aaliyahs_collection/utils/theme/theme.dart';
 
 // Entry point of Flutter App
@@ -13,9 +14,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: AaliyahAppTheme.lightTheme,
-      darkTheme: AaliyahAppTheme.darkTheme
+      darkTheme: AaliyahAppTheme.darkTheme,
+      home: const OnBoardingScreen(),
     );
   }
 }
