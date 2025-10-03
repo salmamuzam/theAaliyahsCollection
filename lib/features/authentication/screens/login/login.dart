@@ -29,22 +29,63 @@ class LoginScreen extends StatelessWidget {
                           : AaliyahImages.darkAppLogo,
                     ),
                   ),
-                  Text("Welcome back!",  style: Theme.of(context).textTheme.headlineMedium),
+                  Text(
+                    "Welcome back!",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                   const SizedBox(height: AaliyahSizes.sm),
-                  Text("Welcome back!",  style: Theme.of(context).textTheme.bodyMedium),
+                  Text(
+                    "Welcome back!",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ],
               ),
 
               // Form
-              Form(child: Column(children: [
-                //Email
-                TextFormField(
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.email), labelText: "Email"),
-                  ),
-                  const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
-                
-              ],))
+              Form(
+                child: Column(
+                  children: [
+                    //Email
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.email),
+                        labelText: "Email",
+                      ),
+                    ),
+                    const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
+
+                    //Password
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        prefixIcon: Icon(Icons.password),
+                        labelText: "Password",
+                        suffixIcon: Icon(Icons.visibility_off),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: AaliyahSizes.spaceBtwInputFields / 2,
+                    ),
+
+                    //Sign In Button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Sign In"),
+                      ),
+                    ),
+
+                    // Create an Account
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        child: Text("Sign Up"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
