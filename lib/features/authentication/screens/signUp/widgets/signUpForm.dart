@@ -1,94 +1,129 @@
 import 'package:flutter/material.dart';
-import 'package:the_aaliyahs_collection/features/authentication/screens/signUp/signUp.dart';
+import 'package:the_aaliyahs_collection/features/authentication/screens/login/login.dart';
 import 'package:the_aaliyahs_collection/utils/constants/sizes.dart';
+import 'package:the_aaliyahs_collection/utils/validators/validator.dart';
 
 /// This widget is the signup form used in the SignUp screen.
 /// It includes fields for first name, last name, email, password, and a Sign Up button.
-class AaliyahSignUpForm extends StatelessWidget {
+class AaliyahSignUpForm extends StatefulWidget {
   const AaliyahSignUpForm({super.key});
+
+  @override
+  State<AaliyahSignUpForm> createState() => _AaliyahSignUpFormState();
+}
+
+class _AaliyahSignUpFormState extends State<AaliyahSignUpForm> {
+  final _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      // Form groups input fields together (can later add validation)
+      key: _formKey,
       child: Column(
         children: [
-          // -------------------------
           // First & Last Name Row
-          // -------------------------
           Row(
             children: [
-              // First Name Input
               Expanded(
-                // Expanded makes the field take available space equally
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    labelText: "First Name", // Label inside the field
-                    prefixIcon: Icon(Icons.person), // Small person icon
+                    labelText: "First Name",
+                    prefixIcon: Icon(Icons.person),
                   ),
+                  validator: AaliyahValidator.validateFirstName,
                 ),
               ),
-              const SizedBox(width: AaliyahSizes.spaceBtwInputFields), 
-              // Small space between first and last name fields
-
-              // Last Name Input
+              const SizedBox(width: AaliyahSizes.spaceBtwInputFields),
               Expanded(
                 child: TextFormField(
                   decoration: const InputDecoration(
                     labelText: "Last Name",
                     prefixIcon: Icon(Icons.person),
                   ),
+                  validator: AaliyahValidator.validateLastName,
                 ),
               ),
             ],
           ),
+          const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
 
-          const SizedBox(height: AaliyahSizes.spaceBtwInputFields), 
-          // Space between name row and email field
-
-          // -------------------------
           // Email Input
-          // -------------------------
           TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
               labelText: "Email Address",
               prefixIcon: Icon(Icons.email),
             ),
+            validator: AaliyahValidator.validateEmail,
           ),
+          const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
 
-          const SizedBox(height: AaliyahSizes.spaceBtwInputFields), 
-          // Space between email and password
-
-          // -------------------------
           // Password Input
-          // -------------------------
           TextFormField(
-            obscureText: true, // Hide password characters
-            decoration: const InputDecoration(
+            controller: _passwordController,
+            obscureText: _obscurePassword,
+            decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.password),
               labelText: "Password",
-              prefixIcon: Icon(Icons.password), 
-              suffixIcon: Icon(Icons.visibility_off), 
-              // This icon could be used to toggle password visibility
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                ),
+                onPressed: () {
+                  setState(() {
+                    _obscurePassword = !_obscurePassword;
+                  });
+                },
+              ),
+            ),
+            validator: AaliyahValidator.validatePassword,
+          ),
+          const SizedBox(height: AaliyahSizes.spaceBtwSections),
+
+          // Sign Up Button
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Navigate to LoginScreen after successful signup
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                }
+              },
+              child: const Text("Sign Up"),
             ),
           ),
 
-          const SizedBox(height: AaliyahSizes.spaceBtwSections), 
-          // Bigger space before the Sign Up button
+          const SizedBox(height: AaliyahSizes.spaceBtwItems),
 
-          // -------------------------
-          // Sign Up Button
-          // -------------------------
+          // Optional: Sign In Button
           SizedBox(
-            width: double.infinity, // button takes full width
-            child: ElevatedButton(
+            width: double.infinity,
+            child: OutlinedButton(
               onPressed: () {
-                // For now, it just navigates to the SignUpScreen (replace with your logic later)
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
               },
-              child: const Text("Sign Up"),
+              child: const Text("Sign In"),
             ),
           ),
         ],

@@ -1,72 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:the_aaliyahs_collection/features/authentication/screens/login/login.dart';
 import 'package:the_aaliyahs_collection/features/authentication/screens/signUp/signUp.dart';
+import 'package:the_aaliyahs_collection/features/shops/screens/home/widgets/home.dart';
 import 'package:the_aaliyahs_collection/utils/constants/sizes.dart';
+import 'package:the_aaliyahs_collection/utils/validators/validator.dart';
 
-/// This widget is the login form that I can use in my login screen.
-/// It contains email, password, and buttons for Sign In and Sign Up.
-class AaliyahLoginForm extends StatelessWidget {
+class AaliyahLoginForm extends StatefulWidget {
   const AaliyahLoginForm({super.key});
+
+  @override
+  _AaliyahLoginFormState createState() => _AaliyahLoginFormState();
+}
+
+class _AaliyahLoginFormState extends State<AaliyahLoginForm> {
+  final _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      // Adding padding around the form so it's not touching screen edges
+      key: _formKey, // Assign the form key
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          vertical: AaliyahSizes.spaceBtwSections, // vertical spacing above and below
+          vertical: AaliyahSizes.spaceBtwSections,
         ),
         child: Column(
           children: [
             // Email Input Field
             TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
               decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.email), // small email icon on the left
-                labelText: "Email", // label that appears inside the field
+                prefixIcon: Icon(Icons.email),
+                labelText: "Email",
               ),
+              validator: AaliyahValidator.validateEmail,
             ),
 
             const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
-            // A small space between email and password fields
 
             // Password Input Field
             TextFormField(
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.password), // small lock icon
-                labelText: "Password",            // label inside password field
-                suffixIcon: Icon(Icons.visibility_off), // icon to show/hide password (just visual here)
+              controller: _passwordController,
+              obscureText: _obscurePassword,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.password),
+                labelText: "Password",
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                ),
               ),
+              validator: AaliyahValidator.validatePassword,
             ),
 
             const SizedBox(height: AaliyahSizes.spaceBtwInputFields),
-            // Space between password and Sign In button
 
             // Sign In Button
             SizedBox(
-              width: double.infinity, // button takes full width
+              width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to LoginScreen when pressed
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
+                  if (_formKey.currentState!.validate()) {
+                    // If all fields are valid, navigate to HomeScreen
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ),
+                    );
+                  }
                 },
-                child: Text("Sign In"),
+                child: const Text("Sign In"),
               ),
             ),
 
             const SizedBox(height: AaliyahSizes.spaceBtwItems),
-            // Space between Sign In and Sign Up button
 
             // Sign Up Button
             SizedBox(
-              width: double.infinity, // button takes full width
+              width: double.infinity,
               child: OutlinedButton(
                 onPressed: () {
-                  // Navigate to SignUpScreen when pressed
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -74,7 +97,7 @@ class AaliyahLoginForm extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text("Sign Up"),
+                child: const Text("Sign Up"),
               ),
             ),
           ],
