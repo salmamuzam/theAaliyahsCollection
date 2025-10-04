@@ -7,32 +7,37 @@ import 'package:the_aaliyahs_collection/utils/theme/customThemes/outlinedButtonT
 import 'package:the_aaliyahs_collection/utils/theme/customThemes/textFieldTheme.dart';
 import 'package:the_aaliyahs_collection/utils/theme/customThemes/textTheme.dart';
 
+/// AaliyahAppTheme combines all custom theme components
+/// to provide a full light and dark theme for the app.
 class AaliyahAppTheme {
-  // Private constructor
-
+  // Private constructor to prevent creating instances
   AaliyahAppTheme._();
 
+  // =========================
   // Light Theme
+  // =========================
   static ThemeData lightTheme = ThemeData(
-    useMaterial3: true,
-    fontFamily: 'Poppins',
-    brightness: Brightness.light,
-    primaryColor: Colors.teal,
-    scaffoldBackgroundColor: Colors.white,
-    textTheme: AaliyahTextTheme.lightTextTheme,
-    chipTheme: AaliyahChipTheme.lightChipTheme,
-    appBarTheme: AaliyahAppBarTheme.lightAppBarTheme,
-    bottomSheetTheme: AaliyahBottomSheetTheme.lightBottomSheetTheme,
-    outlinedButtonTheme: AaliyahOutlinedButtonTheme.lightOutlinedButtonTheme,
-    inputDecorationTheme: AaliyahTextFormFieldTheme.lightInputDecorationTheme,
-    elevatedButtonTheme: AaliyahElevatedButtonTheme.lightElevatedButtonTheme,
+    useMaterial3: true,                     // enable Material 3 styling
+    fontFamily: 'Poppins',                  // app-wide font
+    brightness: Brightness.light,           // light mode
+    primaryColor: Colors.teal,              // main app color
+    scaffoldBackgroundColor: Colors.white,  // background color of screens
+    textTheme: AaliyahTextTheme.lightTextTheme,        // text styles
+    chipTheme: AaliyahChipTheme.lightChipTheme,       // chip styles
+    appBarTheme: AaliyahAppBarTheme.lightAppBarTheme, // AppBar styles
+    bottomSheetTheme: AaliyahBottomSheetTheme.lightBottomSheetTheme, // BottomSheet
+    outlinedButtonTheme: AaliyahOutlinedButtonTheme.lightOutlinedButtonTheme, // OutlinedButtons
+    inputDecorationTheme: AaliyahTextFormFieldTheme.lightInputDecorationTheme, // TextFields
+    elevatedButtonTheme: AaliyahElevatedButtonTheme.lightElevatedButtonTheme, // ElevatedButtons
   );
 
+  // =========================
   // Dark Theme
+  // =========================
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     fontFamily: 'Poppins',
-    brightness: Brightness.dark,
+    brightness: Brightness.dark,            // dark mode
     primaryColor: Colors.teal,
     scaffoldBackgroundColor: Colors.black,
     textTheme: AaliyahTextTheme.darkTextTheme,
